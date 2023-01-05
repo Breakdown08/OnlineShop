@@ -1,0 +1,33 @@
+{% extends 'Pages/base_HomePage.html' %}
+{% load static %}
+
+{% block title %}Авторизация{% endblock %}
+
+{% block back %}
+    <a class="navbar-brand" href="{% url 'homepage_url' %}">Вернуться на главную</a>
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <h2>Log In</h2>
+            <form method="post">
+                {% csrf_token %}
+                <p>
+                    <label for="id_username">Логин пользователя:</label>
+                    <input type="text" name="username" class="form-control" required="" id="id_username">
+                </p>
+                <p>
+                    <label for="id_username">Пароль:</label>
+                    <input type="password" name="password" autocomplete="current-password" required="" class="form-control" id="id_password">
+                </p>
+                <button type="submit" class="btn btn-primary">Авторизоваться</button>
+            </form>
+            <br>
+            <a href="{% url 'register' %}">Регистрация</a>
+        </div>
+    </div>
+{% endblock %}
+

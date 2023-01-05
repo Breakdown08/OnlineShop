@@ -1,0 +1,13 @@
+{% extends 'Pages/base_HomePage.html' %}
+{% load static %}
+
+{% block content %}
+     <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <br>
+            <br>
+            <h1>{{ new_user.first_name }}, добро пожаловать!</h1>
+            <p>Ваш аккаунт успешно зарегистрирован. Теперь вы можете <a href="{% url "login" %}">авторизоваться</a>.</p>
+        </div>
+     </div>
+{% endblock %}
