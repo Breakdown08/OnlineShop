@@ -163,10 +163,10 @@
 					<ul class="main-categories">
                     {% for main_category in all_categories %}
                         <li class="main-nav-list"><a data-toggle="collapse" href="#{{ main_category.slug }}" aria-expanded="false" aria-controls="fruitsVegetable"><span
-								 class="lnr lnr-arrow-right"></span>{{ main_category.key }}<span class="number">({{ main_category.childs_count }})</span></a>
+								 class="lnr lnr-arrow-right"></span>{{ main_category.key }}<span class="number">({{ main_category.count }})</span></a>
                             <ul class="collapse" id="{{ main_category.slug }}" data-toggle="collapse" aria-expanded="false" aria-controls="{{ main_category.slug }}">
-                                {% for child_category in main_category.value %}
-                                    <li class="main-nav-list child"><a href="#">{{ child_category.title }}<span class="number">(13)</span></a></li>
+                                {% for child_category in main_category.child_categories.items %}
+                                    <li class="main-nav-list child"><a href="#">{{ child_category.title }}<span class="number">{{ child_category.count }}</span></a></li>
                                 {% endfor %}
                             </ul>
                         </li>
