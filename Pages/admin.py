@@ -1,3 +1,8 @@
 from django.contrib import admin
+from django.forms import CheckboxSelectMultiple
+from .models import *
 
-# Register your models here.
+admin.site.register(New)
+admin.site.register(Product)
+admin.site.register(ChildCategory)
+admin.site.register(Category)
