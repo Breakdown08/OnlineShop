@@ -58,9 +58,6 @@ class New(models.Model):
         return 'Новость: {}'.format(self.title)
 
 
-
-
-
 class Category(models.Model):
     class Meta:
         verbose_name = 'Категория'
@@ -94,6 +91,9 @@ class ChildCategory(models.Model):
     def get_absolute_url(self):
         return reverse('category_url', kwargs={'slug': self.slug})
 
+    def add_to_bag_url(self):
+        print("!!!@!@!@!@!@!@!@!@")
+        return reverse('category_url', kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
         self.slug = transliterate(self.title)
@@ -113,8 +113,9 @@ class Product(models.Model):
     image_original = models.ImageField(upload_to='products_images/', verbose_name='Главное изображение товара',
                                        default=None, null=True, blank=True)
     price = models.IntegerField(null=True, blank=True, verbose_name='Стоимость товара')
-    category = models.ForeignKey(ChildCategory, related_name='this_category_products', on_delete=models.SET_NULL, null=True,
-                                        blank=True)
+    category = models.ForeignKey(ChildCategory, related_name='this_category_products', on_delete=models.SET_NULL,
+                                 null=True,
+                                 blank=True)
     slug = models.SlugField(max_length=150, unique=True, blank=True, null=True, editable=True)
 
     def __str__(self):
@@ -127,3 +128,16 @@ class Product(models.Model):
         self.slug = transliterate(self.title)
         self.slug = gen_slug(self.slug)
         super().save(*args, **kwargs)
+
+
+class Order(models.Model):
+    class Meta:
+        verbose_name = 'Зазаз'
+        verbose_name_plural = 'Заказы'
+
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    product = models.ForeignKey(Product, related_name='this_products', on_delete=models.CASCADE, null=True,
+                                blank=True)
+
+    def __str__(self):
+        return 'Заказ: {}'.format(self.product.title)

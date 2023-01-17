@@ -1,33 +1,44 @@
 {% extends 'Pages/base_HomePage.html' %}
 {% load static %}
 
-{% block title %}Авторизация{% endblock %}
-
-{% block back %}
-    <a class="navbar-brand" href="{% url 'homepage_url' %}">Вернуться на главную</a>
-{% endblock %}
-
+{% block login_is_active %} active {% endblock %}
 
 
 {% block content %}
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <h2>Log In</h2>
-            <form method="post">
-                {% csrf_token %}
-                <p>
-                    <label for="id_username">Логин пользователя:</label>
-                    <input type="text" name="username" class="form-control" required="" id="id_username">
-                </p>
-                <p>
-                    <label for="id_username">Пароль:</label>
-                    <input type="password" name="password" autocomplete="current-password" required="" class="form-control" id="id_password">
-                </p>
-                <button type="submit" class="btn btn-primary">Авторизоваться</button>
-            </form>
-            <br>
-            <a href="{% url 'register' %}">Регистрация</a>
-        </div>
-    </div>
+<!--================Login Box Area =================-->
+	<section class="login_box_area section_gap">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="login_box_img">
+						<img class="img-fluid" src="img/login.jpg" alt="">
+						<div class="hover">
+							<h4>New to our website?</h4>
+							<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
+							<a class="primary-btn" href="registration.html">Create an Account</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="login_form_inner">
+						<h3>Авторизация</h3>
+						<form class="row login_form" method="post" id="contactForm" novalidate="novalidate">
+                            {% csrf_token %}
+							<div class="col-md-12 form-group">
+								<input type="text" class="form-control" id="name" name="username" placeholder="Имя пользователя" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
+							</div>
+							<div class="col-md-12 form-group">
+								<input type="password" class="form-control" id="name" name="password" placeholder="Пароль" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
+							</div>
+							<div class="col-md-12 form-group">
+								<button type="submit" value="submit" class="primary-btn">Авторизоваться</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--================End Login Box Area =================-->
 {% endblock %}
 

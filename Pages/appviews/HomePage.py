@@ -14,7 +14,8 @@ def fill_categories():
 
 
 def get_last_news():
-    news = New.objects.all()[:3]
+    news = New.objects.all()
+    return news
 
 
 def get_products(category_slug):

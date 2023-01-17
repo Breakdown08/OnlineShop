@@ -50,13 +50,23 @@
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="{% url 'homepage_url' %}">Главная</a></li>
+							<li class="nav-item {% block homepage_is_active %} {% endblock %}"><a class="nav-link" href="{% url 'homepage_url' %}">Главная</a></li>
 
-							<li class="nav-item"><a class="nav-link" href="contact.html">О продукции</a></li>
-							<li class="nav-item"><a class="nav-link" href="contact.html">Контакты</a></li>
+							<li class="nav-item {% block about_is_active %} {% endblock %}"><a class="nav-link" href="{% url 'about_url' %}">О продукции</a></li>
+							<li class="nav-item {% block delivery_is_active %} {% endblock %}"><a class="nav-link" href="{% url 'delivery_url' %}">Доставка и оплата</a></li>
+							<li class="nav-item {% block contacts_is_active %} {% endblock %}"><a class="nav-link" href="{% url 'contacts_url' %}">Контакты</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+							<li class="nav-item"><a href="#" class="cart nav-link"><span class="ti-bag"></span> Корзина</a></li>
+
+						</ul>
+                        <ul class="nav navbar-nav menu_nav ml-auto">
+                            {% if user.is_authenticated %}
+                                <li class="nav-item {% block profile_is_active %} {% endblock %}"><a class="nav-link" href="{% url 'login' %}">Личный кабинет</a></li>
+                                <li class="nav-item"><a class="nav-link" href="{% url 'post-logout' %}">Выход</a></li>
+                            {% else %}
+                                <li class="nav-item {% block login_is_active %} {% endblock %}"><a class="nav-link" href="{% url 'login' %}">Авторизация</a></li>
+                            {% endif %}
 						</ul>
 					</div>
 				</div>
@@ -74,6 +84,17 @@
     {% block products_list %}
     {% endblock %}
 
+    {% block contacts %}
+    {% endblock %}
+
+    {% block about %}
+    {% endblock %}
+
+    {% block delivery %}
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
 
 
 	<footer class="footer-area section_gap">
