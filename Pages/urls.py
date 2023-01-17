@@ -12,6 +12,7 @@ urlpatterns = [
     # path('accounts/', include("django.contrib.auth.urls")),
     # path('accounts/logout/', homepage, name='post-logout'),
     path('', homepage, name='homepage_url'),
+    path('<str:slug>/', category, name='category_url'),
     # path('private/', private, name='private_news_url'),
     # path('about/', about, name='aboutpage_url'),
     # path('news/<str:slug>/', NewDetail.as_view(), name='new_detail_url'),

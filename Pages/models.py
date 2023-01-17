@@ -91,9 +91,14 @@ class ChildCategory(models.Model):
     def __str__(self):
         return 'Вложенная категория: {}'.format(self.title) + ' ({})'.format(self.parent_category.title)
 
+    def get_absolute_url(self):
+        return reverse('category_url', kwargs={'slug': self.slug})
+
+
     def save(self, *args, **kwargs):
         self.slug = transliterate(self.title)
         self.slug = gen_slug(self.slug)
+        self.slug = self.parent_category.slug + '-' + self.slug
         super().save(*args, **kwargs)
 
 
@@ -107,6 +112,7 @@ class Product(models.Model):
     content = RichTextField(verbose_name='Полное описание товара')
     image_original = models.ImageField(upload_to='products_images/', verbose_name='Главное изображение товара',
                                        default=None, null=True, blank=True)
+    price = models.IntegerField(null=True, blank=True, verbose_name='Стоимость товара')
     category = models.ForeignKey(ChildCategory, related_name='this_category_products', on_delete=models.SET_NULL, null=True,
                                         blank=True)
     slug = models.SlugField(max_length=150, unique=True, blank=True, null=True, editable=True)
