@@ -7,4 +7,5 @@ register = template.Library()
 @register.filter
 @stringfilter
 def path(self):
+    print(str(self))
     return str(self)

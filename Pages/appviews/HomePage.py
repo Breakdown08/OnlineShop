@@ -27,7 +27,11 @@ def homepage(request):
     data = {}
     all_categories = fill_categories()
     news = get_last_news()
-    data.update({'all_categories': all_categories, 'news': news})
+    user = request.user
+    bag_products = []
+    if user != 'AnonymousUser':
+        bag_products = BagProduct.objects.filter(user__username=user)
+    data.update({'all_categories': all_categories, 'news': news, 'bag_count': bag_products.count()})
     return render(request, 'Pages/HomePage.html', context=data)
 
 
@@ -36,5 +40,9 @@ def category(request, slug):
     all_categories = fill_categories()
     products = get_products(slug)
     current_category = ChildCategory.objects.filter(slug__iexact=slug).first()
-    data.update({'all_categories': all_categories, 'products': products, 'category': current_category})
+    user = request.user
+    bag_products = []
+    if user != 'AnonymousUser':
+        bag_products = BagProduct.objects.filter(user__username=user)
+    data.update({'all_categories': all_categories, 'products': products, 'category': current_category, 'bag_count': bag_products.count()})
     return render(request, 'Pages/Categories.html', context=data)

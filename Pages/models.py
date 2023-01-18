@@ -130,14 +130,44 @@ class Product(models.Model):
         super().save(*args, **kwargs)
 
 
+
+
+
+
+
 class Order(models.Model):
     class Meta:
         verbose_name = 'Зазаз'
         verbose_name_plural = 'Заказы'
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-    product = models.ForeignKey(Product, related_name='this_products', on_delete=models.CASCADE, null=True,
-                                blank=True)
+    completed = models.BinaryField(verbose_name="Заказ завершен", default=False, blank=True, null=True)
 
     def __str__(self):
-        return 'Заказ: {}'.format(self.product.title)
+        return 'Заказ: {}'.format(self.user)
+
+class OrderProduct(models.Model):
+    class Meta:
+        verbose_name = 'Товар в заказе'
+        verbose_name_plural = 'Товары в заказе'
+
+    order = models.ForeignKey(Order, related_name='this_orders', on_delete=models.SET_NULL, null=True, blank=True)
+    product = models.ForeignKey(Product, related_name='this_order_products', on_delete=models.SET_NULL, null=True,
+                                blank=True)
+    count = models.IntegerField(verbose_name='Количество', blank=True, null=True)
+
+    def __str__(self):
+        return 'Товар в заказе: {}'.format(self.product.title)
+
+class BagProduct(models.Model):
+    class Meta:
+        verbose_name = 'Товар в корзине'
+        verbose_name_plural = 'Корзина'
+
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    product = models.ForeignKey(Product, related_name='this_bag_products', on_delete=models.CASCADE, null=True,
+                                blank=True)
+    count = models.IntegerField(verbose_name='Количество', blank=True, null=True)
+
+    def __str__(self):
+        return 'Товар: {}'.format(self.product.title)

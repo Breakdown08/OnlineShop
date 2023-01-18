@@ -1,6 +1,6 @@
 {% extends 'Pages/base_HomePage.html' %}
 {% load static %}
-
+{% load image_path %}
 
 {% block banner_area %}
     <section class="banner-area organic-breadcrumb">
@@ -48,17 +48,19 @@
                         {% for product in products %}
                             <div class="col-lg-3 col-md-6">
                                 <div class="single-product">
-                                    <img class="img-fluid" src="img/product/p1.jpg" alt="">
+                                    <img class="img-fluid" src="/{{ product.image_original|path }}" alt="">
                                     <div class="product-details">
                                         <h6>{{ product.title }}</h6>
                                         <div class="price">
                                             <h6>₽ {{ product.price }}</h6>
                                         </div>
                                         <div class="prd-bottom">
-                                            <a href="{{ product.category.add_to_bag_url }}" class="social-info">
-                                                <span class="ti-bag"></span>
-                                                <p class="hover-text">в корзину</p>
-                                            </a>
+                                            {% if user.is_authenticated %}
+                                               <a href="{{ product.category.add_to_bag_url }}" class="social-info">
+                                                   <span class="ti-bag"></span>
+                                                   <p class="hover-text">в корзину</p>
+                                               </a>
+                                            {% endif %}
                                             <a href="" class="social-info">
                                                 <span class="lnr lnr-move"></span>
                                                 <p class="hover-text">описание</p>
