@@ -7,5 +7,7 @@ register = template.Library()
 @register.filter
 @stringfilter
 def path(self):
-    print(str(self))
-    return str(self)
+    if str(self).__contains__('media'):
+        return str(self)
+    else:
+        return 'media/'+str(self)

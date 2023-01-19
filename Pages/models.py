@@ -121,6 +121,9 @@ class Product(models.Model):
     def __str__(self):
         return 'Товар: {}'.format(self.title)
 
+    def get_category_url(self):
+        return reverse('category_url', kwargs={'slug': self.category.slug})
+
     def get_absolute_url(self):
         return reverse('product_detail_url', kwargs={'slug': self.slug})
 

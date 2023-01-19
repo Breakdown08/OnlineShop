@@ -1,4 +1,5 @@
 from ..utils import *
+from django.http import HttpResponse
 from pprint import pprint
 
 
@@ -24,6 +25,12 @@ def get_products(category_slug):
 
 
 def homepage(request):
+    if request.method == "POST":
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        content = body['id']
+        return HttpResponse("123123")
+
     data = {}
     all_categories = fill_categories()
     news = get_last_news()
