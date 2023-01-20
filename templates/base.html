@@ -44,8 +44,8 @@
                 },
                 body: JSON.stringify({ "id": id })
             })
-            .then(response => response.json())
-            .then(response => console.log(response))
+            //.then(response => response.json())
+            //.then(response => console.log(response))
             } catch (e) {
                 console.log(e)
 
@@ -80,7 +80,7 @@
 							<li class="nav-item {% block contacts_is_active %} {% endblock %}"><a class="nav-link" href="{% url 'contacts_url' %}">Контакты</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="#" class="cart nav-link"><span class="ti-bag"></span> Корзина {% if bag_count > 0 %} ({{ bag_count }}) {% endif %}</a></li>
+							<li class="nav-item {% block bag_is_active %} {% endblock %}"><a href="{% url 'bag_url' %}" class="cart nav-link"><span class="ti-bag"></span> Корзина {% if bag_count > 0 %} ({{ bag_count }}) {% endif %}</a></li>
 
 						</ul>
                         <ul class="nav navbar-nav menu_nav ml-auto">
@@ -119,6 +119,8 @@
     {% block content %}
     {% endblock %}
 
+    {% block bag %}
+    {% endblock %}
 
 	<footer class="footer-area section_gap">
 		<div class="container">

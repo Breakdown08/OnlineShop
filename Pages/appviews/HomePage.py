@@ -28,8 +28,16 @@ def homepage(request):
     if request.method == "POST":
         body_unicode = request.body.decode('utf-8')
         body = json.loads(body_unicode)
-        content = body['id']
-        return HttpResponse("123123")
+        product_id = body['id']
+        user = request.user
+        existing_products_in_bag = BagProduct.objects.filter(user_id=user.id, product_id=product_id)
+        if existing_products_in_bag.count() > 0:
+            obj = existing_products_in_bag.first()
+            obj.count += 1
+            obj.save()
+        else:
+            BagProduct.objects.create(user_id=user.id, product_id=product_id, count=1).save()
+        return HttpResponse("товар добавлен в корзину")
 
     data = {}
     all_categories = fill_categories()
@@ -51,5 +59,6 @@ def category(request, slug):
     bag_products = []
     if user != 'AnonymousUser':
         bag_products = BagProduct.objects.filter(user__username=user)
-    data.update({'all_categories': all_categories, 'products': products, 'category': current_category, 'bag_count': bag_products.count()})
+    data.update({'all_categories': all_categories, 'products': products, 'category': current_category,
+                 'bag_count': bag_products.count()})
     return render(request, 'Pages/Categories.html', context=data)

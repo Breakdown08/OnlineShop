@@ -6,3 +6,4 @@ from .appviews.Contacts import *
 from .appviews.About import *
 from .appviews.Register import *
 from .appviews.Delivery import *
+from .appviews.Bag import *
